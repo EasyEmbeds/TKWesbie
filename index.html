@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ZET | Division — Emergency Hamburg</title>
 
-    <!-- ╔══════════════════════════════════════════════════════════╗
-         ║  TAB ICON (FAVICON) – uses your ZET logo               ║
-         ╚══════════════════════════════════════════════════════════╝ -->
+    <!-- TAB ICON – uses your ZET logo -->
     <link rel="icon" type="image/webp" href="https://files.catbox.moe/4amz41.webp" />
     <link rel="shortcut icon" type="image/webp" href="https://files.catbox.moe/4amz41.webp" />
     <link rel="apple-touch-icon" href="https://files.catbox.moe/4amz41.webp" />
-
-    <!-- fallback SVG favicon in case WebP isn't supported -->
+    <!-- fallback SVG favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='12' fill='%232ecc71'/%3E%3Ctext x='50' y='72' font-family='Poppins, sans-serif' font-size='64' font-weight='900' fill='%230a0f0a' text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -564,20 +561,58 @@
             color: var(--text-sec);
         }
 
-        /* ── GALLERY / MEETINGS (placeholder) ── */
+        /* ── GALLERY / MEETINGS (updated with 3 images) ── */
         .gallery-section {
             background: var(--bg-off);
         }
-        .gallery-placeholder {
-            background: var(--bg);
-            border: 2px dashed var(--border);
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
             border-radius: 12px;
-            padding: 60px 20px;
-            text-align: center;
-            color: var(--text-sec);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            transition: all 0.35s;
+        }
+        .gallery-item:hover {
+            border-color: var(--border-green);
+            box-shadow: var(--shadow-md), 0 0 0 3px var(--green-light);
+            transform: translateY(-4px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+
+        .gallery-caption {
+            padding: 14px 18px;
+            font-size: 12px;
             font-weight: 600;
-            letter-spacing: 2px;
             text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-sec);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gallery-caption .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
         /* ── APPLICATION ── */
@@ -795,6 +830,9 @@
             .media-grid {
                 grid-template-columns: 1fr;
             }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
             .hero-logo {
                 width: 120px;
                 height: 120px;
@@ -825,9 +863,15 @@
             .media-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         @media (max-width: 600px) {
             .media-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -936,15 +980,36 @@
     <div class="divider"></div>
 
 
-    <!-- ═════════════════ ZET OFFICIAL MEETINGS (placeholder) ═════════════════ -->
+    <!-- ═════════════════ ZET OFFICIAL MEETINGS (updated with 3 images) ═════════════════ -->
     <section class="gallery-section section-pad" id="meetings">
         <div class="container">
             <div class="text-center">
                 <div class="section-label center reveal">Gallery</div>
                 <h2 class="section-heading reveal d1">ZET <span class="hl">OFFICIAL MEETINGS</span></h2>
             </div>
-            <div class="gallery-placeholder reveal d2">
-                Meeting images coming soon
+
+            <div class="gallery-grid">
+                <!-- Meeting image 1 -->
+                <div class="gallery-item reveal d2">
+                    <img src="https://images.iimg.live/images/fantastic-photography-5255.webp" alt="ZET Official Meeting 1" loading="lazy" />
+                    <div class="gallery-caption">
+                        <span class="dot"></span> ZET Emergency Hamburg meeting #1
+                    </div>
+                </div>
+                <!-- Meeting image 2 -->
+                <div class="gallery-item reveal d3">
+                    <img src="https://images.iimg.live/images/wonderful-scene-2356.webp" alt="ZET Official Meeting 2" loading="lazy" />
+                    <div class="gallery-caption">
+                        <span class="dot"></span> ZET Emergency Hamburg meeting #2
+                    </div>
+                </div>
+                <!-- Meeting image 3 -->
+                <div class="gallery-item reveal d4">
+                    <img src="https://images.iimg.live/images/radiant-photo-9788.webp" alt="ZET Official Meeting 3" loading="lazy" />
+                    <div class="gallery-caption">
+                        <span class="dot"></span> ZET Emergency Hamburg meeting #3
+                    </div>
+                </div>
             </div>
         </div>
     </section>
