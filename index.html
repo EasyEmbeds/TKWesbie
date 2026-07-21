@@ -9,7 +9,6 @@
     <link rel="icon" type="image/webp" href="https://files.catbox.moe/4amz41.webp" />
     <link rel="shortcut icon" type="image/webp" href="https://files.catbox.moe/4amz41.webp" />
     <link rel="apple-touch-icon" href="https://files.catbox.moe/4amz41.webp" />
-    <!-- fallback SVG favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='12' fill='%232ecc71'/%3E%3Ctext x='50' y='72' font-family='Poppins, sans-serif' font-size='64' font-weight='900' fill='%230a0f0a' text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,7 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-        /* ── RESET & ROOT ── */
         *,
         *::before,
         *::after {
@@ -70,7 +68,6 @@
             color: inherit;
         }
 
-        /* ── UTILITY ── */
         .container {
             max-width: 1080px;
             margin: 0 auto;
@@ -109,7 +106,6 @@
             transition-delay: 500ms;
         }
 
-        /* ── NAV ── */
         nav {
             position: fixed;
             top: 0;
@@ -261,7 +257,6 @@
             color: var(--green);
         }
 
-        /* ── HERO ── */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -397,7 +392,6 @@
             justify-content: center;
         }
 
-        /* ── BUTTONS ── */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -454,12 +448,6 @@
             transform: translateY(-2px);
         }
 
-        .btn-sm {
-            padding: 10px 22px;
-            font-size: 11px;
-        }
-
-        /* ── SECTION HEADERS ── */
         .section-label {
             font-size: 11px;
             font-weight: 700;
@@ -503,7 +491,6 @@
             margin: 0 auto;
         }
 
-        /* ── DIVIDER ── */
         .divider {
             height: 1px;
             max-width: 600px;
@@ -511,7 +498,6 @@
             background: linear-gradient(to right, transparent, var(--border), transparent);
         }
 
-        /* ── MEDIA / YOUTUBE ── */
         .media-section {
             background: var(--bg);
         }
@@ -561,61 +547,16 @@
             color: var(--text-sec);
         }
 
-        /* ── GALLERY / MEETINGS (updated with 3 images) ── */
-        .gallery-section {
-            background: var(--bg-off);
+        /* Fallback link style in case embed fails */
+        .media-fallback-link {
+            display: block;
+            margin-top: 4px;
+            font-size: 11px;
+            color: var(--green);
+            text-decoration: underline;
+            letter-spacing: 0.5px;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 40px;
-        }
-
-        .gallery-item {
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            transition: all 0.35s;
-        }
-        .gallery-item:hover {
-            border-color: var(--border-green);
-            box-shadow: var(--shadow-md), 0 0 0 3px var(--green-light);
-            transform: translateY(-4px);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.03);
-        }
-
-        .gallery-caption {
-            padding: 14px 18px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-sec);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .gallery-caption .dot {
-            width: 6px;
-            height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        /* ── APPLICATION ── */
         .app-section {
             background: var(--bg);
         }
@@ -686,7 +627,6 @@
             font-weight: 600;
         }
 
-        /* ── ROBLOX GROUP ── */
         .group-section {
             background: var(--bg-off);
         }
@@ -739,7 +679,6 @@
             margin-bottom: 20px;
         }
 
-        /* ── JOIN / DISCORD CTA ── */
         .join-section {
             background: #050805;
             text-align: center;
@@ -780,7 +719,6 @@
             z-index: 1;
         }
 
-        /* ── FOOTER ── */
         footer {
             padding: 32px 24px;
             background: var(--bg);
@@ -819,7 +757,6 @@
             color: var(--green);
         }
 
-        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -828,9 +765,6 @@
                 display: flex;
             }
             .media-grid {
-                grid-template-columns: 1fr;
-            }
-            .gallery-grid {
                 grid-template-columns: 1fr;
             }
             .hero-logo {
@@ -863,15 +797,9 @@
             .media-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
         @media (max-width: 600px) {
             .media-grid {
-                grid-template-columns: 1fr;
-            }
-            .gallery-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -879,7 +807,7 @@
 </head>
 <body>
 
-    <!-- ═════════════════ NAVIGATION ═════════════════ -->
+    <!-- NAV -->
     <nav id="navbar">
         <a href="#" class="nav-brand">
             <img src="https://files.catbox.moe/4amz41.webp" alt="ZET Logo" />
@@ -887,7 +815,7 @@
         </a>
         <div class="nav-links">
             <a href="#media">Media</a>
-            <a href="#meetings">Meetings</a>
+            <!-- Meetings link removed -->
             <a href="#apply">Apply</a>
             <a href="#group">Group</a>
         </div>
@@ -902,14 +830,13 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="#media" onclick="closeMobile()">Media</a>
-        <a href="#meetings" onclick="closeMobile()">Meetings</a>
+        <!-- Meetings link removed -->
         <a href="#apply" onclick="closeMobile()">Apply</a>
         <a href="#group" onclick="closeMobile()">Group</a>
         <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer">Discord ↗</a>
     </div>
 
-
-    <!-- ═════════════════ HERO ═════════════════ -->
+    <!-- HERO -->
     <section class="hero" id="hero">
         <div class="hero-logo-wrap reveal">
             <div class="hero-logo-ring"></div>
@@ -935,8 +862,7 @@
         </div>
     </section>
 
-
-    <!-- ═════════════════ ZET MEDIA / STREET HIGHLIGHTS ═════════════════ -->
+    <!-- MEDIA SECTION (only this remains) -->
     <section class="media-section section-pad" id="media">
         <div class="container">
             <div class="text-center">
@@ -953,6 +879,8 @@
                     </div>
                     <div class="media-card-body">
                         <div class="media-card-title">ZET Street Highlight #1</div>
+                        <!-- Fallback link in case embed fails -->
+                        <a href="https://www.youtube.com/watch?v=HI0deAwX0y4" target="_blank" class="media-fallback-link">Watch on YouTube ↗</a>
                     </div>
                 </div>
                 <!-- Video 2 -->
@@ -962,6 +890,7 @@
                     </div>
                     <div class="media-card-body">
                         <div class="media-card-title">ZET Street Highlight #2</div>
+                        <a href="https://www.youtube.com/watch?v=7vMNu9r9x34" target="_blank" class="media-fallback-link">Watch on YouTube ↗</a>
                     </div>
                 </div>
                 <!-- Video 3 -->
@@ -971,6 +900,7 @@
                     </div>
                     <div class="media-card-body">
                         <div class="media-card-title">ZET Street Highlight #3</div>
+                        <a href="https://www.youtube.com/watch?v=nrQ1_-QqVwo" target="_blank" class="media-fallback-link">Watch on YouTube ↗</a>
                     </div>
                 </div>
             </div>
@@ -979,45 +909,7 @@
 
     <div class="divider"></div>
 
-
-    <!-- ═════════════════ ZET OFFICIAL MEETINGS (updated with 3 images) ═════════════════ -->
-    <section class="gallery-section section-pad" id="meetings">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-label center reveal">Gallery</div>
-                <h2 class="section-heading reveal d1">ZET <span class="hl">OFFICIAL MEETINGS</span></h2>
-            </div>
-
-            <div class="gallery-grid">
-                <!-- Meeting image 1 -->
-                <div class="gallery-item reveal d2">
-                    <img src="https://images.iimg.live/images/fantastic-photography-5255.webp" alt="ZET Official Meeting 1" loading="lazy" />
-                    <div class="gallery-caption">
-                        <span class="dot"></span> ZET Emergency Hamburg meeting #1
-                    </div>
-                </div>
-                <!-- Meeting image 2 -->
-                <div class="gallery-item reveal d3">
-                    <img src="https://images.iimg.live/images/wonderful-scene-2356.webp" alt="ZET Official Meeting 2" loading="lazy" />
-                    <div class="gallery-caption">
-                        <span class="dot"></span> ZET Emergency Hamburg meeting #2
-                    </div>
-                </div>
-                <!-- Meeting image 3 -->
-                <div class="gallery-item reveal d4">
-                    <img src="https://images.iimg.live/images/radiant-photo-9788.webp" alt="ZET Official Meeting 3" loading="lazy" />
-                    <div class="gallery-caption">
-                        <span class="dot"></span> ZET Emergency Hamburg meeting #3
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="divider"></div>
-
-
-    <!-- ═════════════════ APPLICATION ═════════════════ -->
+    <!-- APPLICATION -->
     <section class="app-section section-pad" id="apply">
         <div class="container">
             <div class="text-center">
@@ -1043,8 +935,7 @@
 
     <div class="divider"></div>
 
-
-    <!-- ═════════════════ ROBLOX GROUP ═════════════════ -->
+    <!-- GROUP -->
     <section class="group-section section-pad" id="group">
         <div class="container">
             <div class="text-center">
@@ -1066,8 +957,7 @@
         </div>
     </section>
 
-
-    <!-- ═════════════════ DISCORD CTA ═════════════════ -->
+    <!-- JOIN -->
     <section class="join-section section-pad" id="join">
         <div class="container">
             <div class="section-label center reveal">Get Started</div>
@@ -1086,8 +976,7 @@
         </div>
     </section>
 
-
-    <!-- ═════════════════ FOOTER ═════════════════ -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-brand"><span>ZET</span> | DIVISION</div>
         <p class="footer-copy">ZET | Division – Emergency Hamburg © <span id="footerYear"></span></p>
@@ -1098,26 +987,20 @@
         </div>
     </footer>
 
-
-    <!-- ═════════════════ JAVASCRIPT ═════════════════ -->
     <script>
-        // Auto year
         document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-        // Scroll reveal
         const reveals = document.querySelectorAll('.reveal');
         const revealObs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
         }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
         reveals.forEach(el => revealObs.observe(el));
 
-        // Nav scroll shadow
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             navbar.classList.toggle('scrolled', window.scrollY > 20);
         });
 
-        // Mobile menu
         const mobileToggle = document.getElementById('mobileToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         mobileToggle.addEventListener('click', () => {
@@ -1130,7 +1013,6 @@
             mobileMenu.classList.remove('open');
         }
 
-        // Back to top
         document.getElementById('backToTop').addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
