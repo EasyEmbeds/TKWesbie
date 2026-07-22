@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ZET | Division — Emergency Hamburg</title>
 
-    <!-- TAB ICON – uses your ZET logo -->
+    <!-- TAB ICON -->
     <link rel="icon" type="image/webp" href="https://files.catbox.moe/4amz41.webp" />
     <link rel="shortcut icon" type="image/webp" href="https://files.catbox.moe/4amz41.webp" />
     <link rel="apple-touch-icon" href="https://files.catbox.moe/4amz41.webp" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='12' fill='%232ecc71'/%3E%3Ctext x='50' y='72' font-family='Poppins, sans-serif' font-size='64' font-weight='900' fill='%230a0f0a' text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,7 +26,6 @@
         :root {
             --bg: #0a0f0a;
             --bg-off: #111811;
-            --bg-card: #141c14;
             --text: #e8f0e8;
             --text-sec: #a0b8a0;
             --text-dim: #6a806a;
@@ -35,14 +33,12 @@
             --green-hover: #27ae60;
             --green-dark: #1a8c4a;
             --green-light: rgba(46, 204, 113, 0.12);
-            --green-glow: rgba(46, 204, 113, 0.30);
             --border: #1f2a1f;
             --border-green: rgba(46, 204, 113, 0.35);
             --radius: 6px;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+            --shadow-green: 0 4px 20px rgba(46, 204, 113, 0.25);
             --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.6);
             --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.7);
-            --shadow-green: 0 4px 20px rgba(46, 204, 113, 0.25);
         }
 
         html {
@@ -54,12 +50,11 @@
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
             line-height: 1.6;
             position: relative;
         }
 
-        /* ── ANIMATED BACKGROUND CANVAS ── */
+        /* ── ANIMATED BACKGROUND ── */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -67,11 +62,9 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            display: block;
             pointer-events: none;
         }
 
-        /* ── ALL CONTENT SITS ON TOP ── */
         .content-wrapper {
             position: relative;
             z-index: 1;
@@ -121,10 +114,8 @@
         .d4 {
             transition-delay: 400ms;
         }
-        .d5 {
-            transition-delay: 500ms;
-        }
 
+        /* ── NAV ── */
         nav {
             position: fixed;
             top: 0;
@@ -276,6 +267,7 @@
             color: var(--green);
         }
 
+        /* ── HERO ── */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -310,10 +302,23 @@
             pointer-events: none;
         }
 
+        /* ── HERO LOGO WITH FLOATING + SHIMMER ── */
         .hero-logo-wrap {
             position: relative;
             margin-bottom: 28px;
+            animation: float 3s ease-in-out infinite;
         }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
         .hero-logo-ring {
             position: absolute;
             inset: -14px;
@@ -321,6 +326,7 @@
             border-radius: 22px;
             animation: ringPulse 3s ease-in-out infinite;
         }
+
         @keyframes ringPulse {
             0%,
             100% {
@@ -332,7 +338,9 @@
                 transform: scale(1.04);
             }
         }
+
         .hero-logo {
+            position: relative;
             width: 160px;
             height: 160px;
             border-radius: 18px;
@@ -341,10 +349,40 @@
             box-shadow: var(--shadow-green), var(--shadow-lg);
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
                 box-shadow 0.5s;
+            display: block;
+            overflow: hidden;
         }
+
+        .hero-logo::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.15) 40%,
+                    rgba(255, 255, 255, 0.3) 50%,
+                    rgba(255, 255, 255, 0.15) 60%,
+                    transparent 100%);
+            animation: shimmer 3s infinite ease-in-out;
+            pointer-events: none;
+            border-radius: 18px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
         .hero-logo:hover {
             transform: scale(1.06) rotate(1deg);
-            box-shadow: 0 8px 50px rgba(46, 204, 113, 0.35), var(--shadow-lg);
+            box-shadow: 0 8px 50px rgba(46, 204, 113, 0.4), var(--shadow-lg);
         }
 
         .hero-tag {
@@ -645,6 +683,7 @@
             font-weight: 600;
         }
 
+        /* ── GROUP SECTION (with YouTube link) ── */
         .group-section {
             background: var(--bg-off);
         }
@@ -695,6 +734,16 @@
             font-size: 13px;
             color: var(--text-dim);
             margin-bottom: 20px;
+        }
+
+        .group-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .group-links .btn {
+            width: 100%;
         }
 
         .discord-widget-section {
@@ -799,6 +848,135 @@
             color: var(--green);
         }
 
+        /* ── POPUP STYLES ── */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .popup-box {
+            background: var(--bg-off);
+            border: 2px solid var(--border-green);
+            border-radius: 16px;
+            padding: 48px 36px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-lg), 0 0 60px rgba(46, 204, 113, 0.15);
+        }
+
+        .popup-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--green), var(--green-hover), var(--green));
+            border-radius: 16px 16px 0 0;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .popup-close:hover {
+            color: var(--text);
+        }
+
+        .popup-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .popup-title {
+            font-size: 22px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .popup-title span {
+            color: var(--green);
+        }
+
+        .popup-desc {
+            font-size: 14px;
+            color: var(--text-sec);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .popup-desc strong {
+            color: var(--text);
+        }
+
+        .popup-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--green);
+            color: #0a0f0a;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+            width: 100%;
+        }
+        .popup-btn:hover {
+            background: var(--green-hover);
+            box-shadow: var(--shadow-green);
+            transform: translateY(-2px);
+        }
+
+        .popup-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -829,6 +1007,9 @@
             .widget-wrapper iframe {
                 height: 350px;
             }
+            .popup-box {
+                padding: 32px 20px;
+            }
         }
         @media (min-width: 769px) {
             .mobile-toggle {
@@ -852,10 +1033,10 @@
 </head>
 <body>
 
-    <!-- ═════════════════ ANIMATED BACKGROUND (CANVAS) ═════════════════ -->
+    <!-- ANIMATED BACKGROUND -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- ═════════════════ MAIN CONTENT WRAPPER ═════════════════ -->
+    <!-- MAIN CONTENT -->
     <div class="content-wrapper">
 
         <!-- NAV -->
@@ -982,7 +1163,7 @@
 
         <div class="divider"></div>
 
-        <!-- ROBLOX GROUP -->
+        <!-- ROBLOX GROUP + YOUTUBE -->
         <section class="group-section section-pad" id="group">
             <div class="container">
                 <div class="text-center">
@@ -996,10 +1177,19 @@
                     </div>
                     <div class="group-name">Legion Community Server</div>
                     <div class="group-sub">Join our Roblox group</div>
-                    <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer" class="btn btn-green" style="width:100%">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        Join Roblox Group
-                    </a>
+
+                    <div class="group-links">
+                        <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer" class="btn btn-green">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                            Join Roblox Group
+                        </a>
+
+                        <!-- ── YOUTUBE CHANNEL LINK ── -->
+                        <a href="https://www.youtube.com/@OfficialZET_Zeus" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="border-color:var(--border-green); color:var(--text);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            Subscribe on YouTube
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1053,12 +1243,29 @@
             <div class="footer-links">
                 <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer">Discord</a>
                 <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer">Roblox Group</a>
+                <a href="https://www.youtube.com/@OfficialZET_Zeus" target="_blank" rel="noopener noreferrer">YouTube</a>
                 <a href="#" id="backToTop">Back to Top ↑</a>
             </div>
         </footer>
 
     </div>
-    <!-- ═════════════════ END CONTENT WRAPPER ═════════════════ -->
+
+    <!-- ── JOIN DISCORD POPUP ── -->
+    <div class="popup-overlay" id="discordPopup">
+        <div class="popup-box">
+            <button class="popup-close" id="popupClose">✕</button>
+            <div class="popup-icon">🚀</div>
+            <h3 class="popup-title">JOIN <span>DISCORD</span></h3>
+            <p class="popup-desc">
+                <strong>47 members</strong> are online right now.<br />
+                Don't miss the action – join the community and start grinding with us!
+            </p>
+            <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer" class="popup-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                Join Discord Now
+            </a>
+        </div>
+    </div>
 
     <script>
         // ── AUTO YEAR ──
@@ -1096,9 +1303,43 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // ════════════════════════════════════════════════════
-        //  ANIMATED PARTICLE BACKGROUND (CANVAS)
-        // ════════════════════════════════════════════════════
+        // ── DISCORD POPUP ──
+        const popup = document.getElementById('discordPopup');
+        const popupClose = document.getElementById('popupClose');
+
+        // Show popup after 10 seconds
+        setTimeout(() => {
+            // Only show if user hasn't closed it before (sessionStorage)
+            if (!sessionStorage.getItem('popupClosed')) {
+                popup.classList.add('active');
+                document.body.style.overflow = 'hidden'; // prevent scroll
+            }
+        }, 10000);
+
+        // Close popup
+        function closePopup() {
+            popup.classList.remove('active');
+            document.body.style.overflow = '';
+            sessionStorage.setItem('popupClosed', 'true');
+        }
+
+        popupClose.addEventListener('click', closePopup);
+
+        // Close on background click
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                closePopup();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && popup.classList.contains('active')) {
+                closePopup();
+            }
+        });
+
+        // ── ANIMATED PARTICLE BACKGROUND ──
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -1134,7 +1375,6 @@
             }
         }
 
-        // Spawn particles
         const particleCount = Math.min(100, Math.floor((width * height) / 10000));
         for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle());
@@ -1172,7 +1412,6 @@
 
         animateParticles();
 
-        // Recalculate particles on resize
         window.addEventListener('resize', () => {
             resizeCanvas();
             const newCount = Math.min(100, Math.floor((width * height) / 10000));
