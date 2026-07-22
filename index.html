@@ -56,6 +56,25 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             line-height: 1.6;
+            position: relative;
+        }
+
+        /* ── ANIMATED BACKGROUND CANVAS ── */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            display: block;
+            pointer-events: none;
+        }
+
+        /* ── ALL CONTENT SITS ON TOP ── */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
         }
 
         img {
@@ -556,59 +575,6 @@
             letter-spacing: 0.5px;
         }
 
-        .gallery-section {
-            background: var(--bg-off);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 40px;
-        }
-
-        .gallery-item {
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            transition: all 0.35s;
-        }
-        .gallery-item:hover {
-            border-color: var(--border-green);
-            box-shadow: var(--shadow-md), 0 0 0 3px var(--green-light);
-            transform: translateY(-4px);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.03);
-        }
-
-        .gallery-caption {
-            padding: 14px 18px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-sec);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .gallery-caption .dot {
-            width: 6px;
-            height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
         .app-section {
             background: var(--bg);
         }
@@ -731,7 +697,6 @@
             margin-bottom: 20px;
         }
 
-        /* ── DISCORD WIDGET SECTION ── */
         .discord-widget-section {
             background: var(--bg);
         }
@@ -841,8 +806,7 @@
             .mobile-toggle {
                 display: flex;
             }
-            .media-grid,
-            .gallery-grid {
+            .media-grid {
                 grid-template-columns: 1fr;
             }
             .hero-logo {
@@ -878,13 +842,9 @@
             .media-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
         @media (max-width: 600px) {
-            .media-grid,
-            .gallery-grid {
+            .media-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -892,254 +852,232 @@
 </head>
 <body>
 
-    <!-- NAV -->
-    <nav id="navbar">
-        <a href="#" class="nav-brand">
-            <img src="https://files.catbox.moe/4amz41.webp" alt="ZET Logo" />
-            <span class="nav-brand-text"><span>ZET</span> | Division</span>
-        </a>
-        <div class="nav-links">
-            <a href="#media">Media</a>
-            <a href="#meetings">Meetings</a>
-            <a href="#apply">Apply</a>
-            <a href="#group">Group</a>
-            <a href="#discord">Discord</a>
-        </div>
-        <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer" class="nav-cta">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-            Discord
-        </a>
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
-            <span></span><span></span><span></span>
-        </button>
-    </nav>
+    <!-- ═════════════════ ANIMATED BACKGROUND (CANVAS) ═════════════════ -->
+    <canvas id="bg-canvas"></canvas>
 
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#media" onclick="closeMobile()">Media</a>
-        <a href="#meetings" onclick="closeMobile()">Meetings</a>
-        <a href="#apply" onclick="closeMobile()">Apply</a>
-        <a href="#group" onclick="closeMobile()">Group</a>
-        <a href="#discord" onclick="closeMobile()">Discord</a>
-        <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer">Discord ↗</a>
-    </div>
+    <!-- ═════════════════ MAIN CONTENT WRAPPER ═════════════════ -->
+    <div class="content-wrapper">
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-        <div class="hero-logo-wrap reveal">
-            <div class="hero-logo-ring"></div>
-            <img src="https://files.catbox.moe/4amz41.webp" alt="ZET Division Logo" class="hero-logo" width="160" height="160" />
-        </div>
-        <div class="hero-tag reveal d1">Emergency Hamburg</div>
-        <h1 class="hero-title reveal d2">
-            <span class="tk">ZET</span><span class="sep"> | </span>DIVISION
-        </h1>
-        <p class="hero-tagline reveal d3">Emergency Hamburg's Finest</p>
-        <p class="hero-desc reveal d3">
-            ZET is a dominant force in Emergency Hamburg. <strong>We grind, we war, we control the streets.</strong> Join if you're ready.
-        </p>
-        <div class="hero-buttons reveal d4">
-            <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer" class="btn btn-green">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-                JOIN DISCORD
+        <!-- NAV -->
+        <nav id="navbar">
+            <a href="#" class="nav-brand">
+                <img src="https://files.catbox.moe/4amz41.webp" alt="ZET Logo" />
+                <span class="nav-brand-text"><span>ZET</span> | Division</span>
             </a>
-            <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"/><path d="m8 12 4-6 4 6-4 6Z"/></svg>
-                Join Roblox Group
+            <div class="nav-links">
+                <a href="#media">Media</a>
+                <a href="#apply">Apply</a>
+                <a href="#group">Group</a>
+                <a href="#discord">Discord</a>
+            </div>
+            <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer" class="nav-cta">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                Discord
             </a>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#media" onclick="closeMobile()">Media</a>
+            <a href="#apply" onclick="closeMobile()">Apply</a>
+            <a href="#group" onclick="closeMobile()">Group</a>
+            <a href="#discord" onclick="closeMobile()">Discord</a>
+            <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer">Discord ↗</a>
         </div>
-    </section>
 
-    <!-- MEDIA -->
-    <section class="media-section section-pad" id="media">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-label center reveal">Media</div>
-                <h2 class="section-heading reveal d1">ZET MEDIA / <span class="hl">STREET HIGHLIGHTS</span></h2>
-                <p class="section-sub center reveal d2">Watch ZET in action. Street clips, wars, and highlights from Hamburg.</p>
+        <!-- HERO -->
+        <section class="hero" id="hero">
+            <div class="hero-logo-wrap reveal">
+                <div class="hero-logo-ring"></div>
+                <img src="https://files.catbox.moe/4amz41.webp" alt="ZET Division Logo" class="hero-logo" width="160" height="160" />
             </div>
-
-            <div class="media-grid">
-                <div class="media-card reveal d2">
-                    <div class="media-embed">
-                        <iframe src="https://www.youtube.com/embed/HI0deAwX0y4" title="ZET Street Highlight 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-                    </div>
-                    <div class="media-card-body">
-                        <div class="media-card-title">ZET Street Highlight #1</div>
-                        <a href="https://www.youtube.com/watch?v=HI0deAwX0y4" target="_blank" class="media-fallback-link">Watch on YouTube ↗</a>
-                    </div>
-                </div>
-                <div class="media-card reveal d3">
-                    <div class="media-embed">
-                        <iframe src="https://www.youtube.com/embed/7vMNu9r9x34" title="ZET Street Highlight 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-                    </div>
-                    <div class="media-card-body">
-                        <div class="media-card-title">ZET Street Highlight #2</div>
-                        <a href="https://www.youtube.com/watch?v=7vMNu9r9x34" target="_blank" class="media-fallback-link">Watch on YouTube ↗</a>
-                    </div>
-                </div>
-                <div class="media-card reveal d4">
-                    <div class="media-embed">
-                        <iframe src="https://www.youtube.com/embed/nrQ1_-QqVwo" title="ZET Street Highlight 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-                    </div>
-                    <div class="media-card-body">
-                        <div class="media-card-title">ZET Street Highlight #3</div>
-                        <a href="https://www.youtube.com/watch?v=nrQ1_-QqVwo" target="_blank" class="media-fallback-link">Watch on YouTube ↗</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- MEETINGS -->
-    <section class="gallery-section section-pad" id="meetings">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-label center reveal">Gallery</div>
-                <h2 class="section-heading reveal d1">ZET <span class="hl">OFFICIAL MEETINGS</span></h2>
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-item reveal d2">
-                    <img src="https://files.catbox.moe/vstl9b.png" alt="ZET Official Meeting 1" loading="lazy" />
-                    <div class="gallery-caption">
-                        <span class="dot"></span> ZET Official Meeting 1
-                    </div>
-                </div>
-                <div class="gallery-item reveal d3">
-                    <img src="https://files.catbox.moe/f33jd3.png" alt="ZET Official Meeting 2" loading="lazy" />
-                    <div class="gallery-caption">
-                        <span class="dot"></span> ZET Official Meeting 2
-                    </div>
-                </div>
-                <div class="gallery-item reveal d4">
-                    <img src="https://files.catbox.moe/lz38cj.png" alt="ZET Official Meeting 3" loading="lazy" />
-                    <div class="gallery-caption">
-                        <span class="dot"></span> ZET Official Meeting 3
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- APPLICATION -->
-    <section class="app-section section-pad" id="apply">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-label center reveal">Recruitment</div>
-                <h2 class="section-heading reveal d1">Want <span class="hl">In</span>?</h2>
-            </div>
-
-            <div class="app-box reveal d2">
-                <div class="app-icon">
-                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg>
-                </div>
-                <h3 class="app-title">Application</h3>
-                <p class="app-msg">
-                    To create an application ticket, click on the button below and send your <em>XP screenshot</em>, <em>gamepass list</em>, <em>skill level</em> and wait to be assigned to a tester.
-                </p>
-                <a href="https://discord.com/channels/1478711010092388392/1491058033520804025" target="_blank" rel="noopener noreferrer" class="btn btn-green">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg>
-                    APPLY NOW
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- ROBLOX GROUP -->
-    <section class="group-section section-pad" id="group">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-label center reveal">Community</div>
-                <h2 class="section-heading reveal d1">ROBLOX <span class="hl">GROUP</span></h2>
-            </div>
-
-            <div class="group-card reveal d2">
-                <div class="group-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z" stroke-width="2"/><path d="m8 12 4-6 4 6-4 6Z" stroke-width="2"/></svg>
-                </div>
-                <div class="group-name">Legion Community Server</div>
-                <div class="group-sub">Join our Roblox group</div>
-                <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer" class="btn btn-green" style="width:100%">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    Join Roblox Group
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- DISCORD WIDGET (LIVE) -->
-    <section class="discord-widget-section section-pad" id="discord">
-        <div class="container">
-            <div class="text-center">
-                <div class="section-label center reveal">Discord</div>
-                <h2 class="section-heading reveal d1">JOIN THE <span class="hl">COMMUNITY</span></h2>
-                <p class="section-sub center reveal d2">Live members, voice channels, and instant access – all right here.</p>
-            </div>
-
-            <div class="widget-wrapper reveal d3">
-                <iframe src="https://discord.com/widget?id=1478711010092388392&theme=dark" 
-                        allowtransparency="true" 
-                        frameborder="0" 
-                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-                </iframe>
-            </div>
-        </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- JOIN CTA -->
-    <section class="join-section section-pad" id="join">
-        <div class="container">
-            <div class="section-label center reveal">Get Started</div>
-            <h2 class="section-heading reveal d1" style="color:#fff">Join the <span class="hl">Division</span></h2>
-            <p class="section-sub center reveal d2">Step into the thunder. Link up with the crew and start making moves in Hamburg today.</p>
-            <div class="join-buttons reveal d3">
+            <div class="hero-tag reveal d1">Emergency Hamburg</div>
+            <h1 class="hero-title reveal d2">
+                <span class="tk">ZET</span><span class="sep"> | </span>DIVISION
+            </h1>
+            <p class="hero-tagline reveal d3">Emergency Hamburg's Finest</p>
+            <p class="hero-desc reveal d3">
+                ZET is a dominant force in Emergency Hamburg. <strong>We grind, we war, we control the streets.</strong> Join if you're ready.
+            </p>
+            <div class="hero-buttons reveal d4">
                 <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer" class="btn btn-green">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                     JOIN DISCORD
                 </a>
-                <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.2)">
+                <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"/><path d="m8 12 4-6 4 6-4 6Z"/></svg>
                     Join Roblox Group
                 </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-brand"><span>ZET</span> | DIVISION</div>
-        <p class="footer-copy">ZET | Division – Emergency Hamburg © <span id="footerYear"></span></p>
-        <div class="footer-links">
-            <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer">Discord</a>
-            <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer">Roblox Group</a>
-            <a href="#" id="backToTop">Back to Top ↑</a>
-        </div>
-    </footer>
+        <!-- MEDIA -->
+        <section class="media-section section-pad" id="media">
+            <div class="container">
+                <div class="text-center">
+                    <div class="section-label center reveal">Media</div>
+                    <h2 class="section-heading reveal d1">ZET MEDIA / <span class="hl">STREET HIGHLIGHTS</span></h2>
+                    <p class="section-sub center reveal d2">Watch ZET in action. Street clips, wars, and highlights from Hamburg.</p>
+                </div>
+
+                <div class="media-grid">
+                    <div class="media-card reveal d2">
+                        <div class="media-embed">
+                            <iframe src="https://www.youtube.com/embed/HI0deAwX0y4" title="ZET Street Highlight 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <div class="media-card-body">
+                            <div class="media-card-title">ZET Street Highlight #1</div>
+                            <a href="https://www.youtube.com/watch?v=HI0deAwX0y4" target="_blank" class="media-fallback-link">Watch on YouTube ↗</a>
+                        </div>
+                    </div>
+                    <div class="media-card reveal d3">
+                        <div class="media-embed">
+                            <iframe src="https://www.youtube.com/embed/7vMNu9r9x34" title="ZET Street Highlight 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <div class="media-card-body">
+                            <div class="media-card-title">ZET Street Highlight #2</div>
+                            <a href="https://www.youtube.com/watch?v=7vMNu9r9x34" target="_blank" class="media-fallback-link">Watch on YouTube ↗</a>
+                        </div>
+                    </div>
+                    <div class="media-card reveal d4">
+                        <div class="media-embed">
+                            <iframe src="https://www.youtube.com/embed/nrQ1_-QqVwo" title="ZET Street Highlight 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <div class="media-card-body">
+                            <div class="media-card-title">ZET Street Highlight #3</div>
+                            <a href="https://www.youtube.com/watch?v=nrQ1_-QqVwo" target="_blank" class="media-fallback-link">Watch on YouTube ↗</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- APPLICATION -->
+        <section class="app-section section-pad" id="apply">
+            <div class="container">
+                <div class="text-center">
+                    <div class="section-label center reveal">Recruitment</div>
+                    <h2 class="section-heading reveal d1">Want <span class="hl">In</span>?</h2>
+                </div>
+
+                <div class="app-box reveal d2">
+                    <div class="app-icon">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg>
+                    </div>
+                    <h3 class="app-title">Application</h3>
+                    <p class="app-msg">
+                        To create an application ticket, click on the button below and send your <em>XP screenshot</em>, <em>gamepass list</em>, <em>skill level</em> and wait to be assigned to a tester.
+                    </p>
+                    <a href="https://discord.com/channels/1478711010092388392/1491058033520804025" target="_blank" rel="noopener noreferrer" class="btn btn-green">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg>
+                        APPLY NOW
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ROBLOX GROUP -->
+        <section class="group-section section-pad" id="group">
+            <div class="container">
+                <div class="text-center">
+                    <div class="section-label center reveal">Community</div>
+                    <h2 class="section-heading reveal d1">ROBLOX <span class="hl">GROUP</span></h2>
+                </div>
+
+                <div class="group-card reveal d2">
+                    <div class="group-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z" stroke-width="2"/><path d="m8 12 4-6 4 6-4 6Z" stroke-width="2"/></svg>
+                    </div>
+                    <div class="group-name">Legion Community Server</div>
+                    <div class="group-sub">Join our Roblox group</div>
+                    <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer" class="btn btn-green" style="width:100%">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        Join Roblox Group
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- DISCORD WIDGET -->
+        <section class="discord-widget-section section-pad" id="discord">
+            <div class="container">
+                <div class="text-center">
+                    <div class="section-label center reveal">Discord</div>
+                    <h2 class="section-heading reveal d1">JOIN THE <span class="hl">COMMUNITY</span></h2>
+                    <p class="section-sub center reveal d2">Live members, voice channels, and instant access – all right here.</p>
+                </div>
+
+                <div class="widget-wrapper reveal d3">
+                    <iframe src="https://discord.com/widget?id=1478711010092388392&theme=dark" 
+                            allowtransparency="true" 
+                            frameborder="0" 
+                            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- JOIN CTA -->
+        <section class="join-section section-pad" id="join">
+            <div class="container">
+                <div class="section-label center reveal">Get Started</div>
+                <h2 class="section-heading reveal d1" style="color:#fff">Join the <span class="hl">Division</span></h2>
+                <p class="section-sub center reveal d2">Step into the thunder. Link up with the crew and start making moves in Hamburg today.</p>
+                <div class="join-buttons reveal d3">
+                    <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer" class="btn btn-green">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                        JOIN DISCORD
+                    </a>
+                    <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.2)">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"/><path d="m8 12 4-6 4 6-4 6Z"/></svg>
+                        Join Roblox Group
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-brand"><span>ZET</span> | DIVISION</div>
+            <p class="footer-copy">ZET | Division – Emergency Hamburg © <span id="footerYear"></span></p>
+            <div class="footer-links">
+                <a href="https://discord.gg/aagBNu6F6U" target="_blank" rel="noopener noreferrer">Discord</a>
+                <a href="https://www.roblox.com/communities/32380100/Legion-Community-Server" target="_blank" rel="noopener noreferrer">Roblox Group</a>
+                <a href="#" id="backToTop">Back to Top ↑</a>
+            </div>
+        </footer>
+
+    </div>
+    <!-- ═════════════════ END CONTENT WRAPPER ═════════════════ -->
 
     <script>
+        // ── AUTO YEAR ──
         document.getElementById('footerYear').textContent = new Date().getFullYear();
 
+        // ── SCROLL REVEAL ──
         const reveals = document.querySelectorAll('.reveal');
         const revealObs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
         }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
         reveals.forEach(el => revealObs.observe(el));
 
+        // ── NAV SCROLL SHADOW ──
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             navbar.classList.toggle('scrolled', window.scrollY > 20);
         });
 
+        // ── MOBILE MENU ──
         const mobileToggle = document.getElementById('mobileToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         mobileToggle.addEventListener('click', () => {
@@ -1152,9 +1090,98 @@
             mobileMenu.classList.remove('open');
         }
 
+        // ── BACK TO TOP ──
         document.getElementById('backToTop').addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ════════════════════════════════════════════════════
+        //  ANIMATED PARTICLE BACKGROUND (CANVAS)
+        // ════════════════════════════════════════════════════
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 2.5 + 1;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(46, 204, 113, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        // Spawn particles
+        const particleCount = Math.min(100, Math.floor((width * height) / 10000));
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function drawLines() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const maxDist = 150;
+                    if (dist < maxDist) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        const alpha = 0.15 * (1 - dist / maxDist);
+                        ctx.strokeStyle = `rgba(46, 204, 113, ${alpha})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            for (let p of particles) {
+                p.update();
+                p.draw();
+            }
+            drawLines();
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // Recalculate particles on resize
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            const newCount = Math.min(100, Math.floor((width * height) / 10000));
+            while (particles.length < newCount) {
+                particles.push(new Particle());
+            }
+            while (particles.length > newCount) {
+                particles.pop();
+            }
         });
     </script>
 </body>
